@@ -1,14 +1,35 @@
-﻿namespace DiscountCalculator.Console.Model
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace DiscountCalculator.Console.Model
 {
     public class ShoppingCart : IShoppingCart
     {
-        public void AddItemToCart(Product product)
+        private readonly List<Product> items = new List<Product>();
+        
+        public string ShoppingCartId { get; private set; }
+
+        public static ShoppingCart GetCart()
         {
+            var cart = new ShoppingCart();
+            cart.ShoppingCartId = cart.GetCartId();
+            return cart;
+        }
+
+        public void AddItem(Product product)
+        {
+            this.items.Add(product);
         }
 
         public decimal GetCartTotal()
         {
-            return 100;
+            return this.items.Sum(p => p.UnitPrice);
+        }
+
+        private string GetCartId()
+        {
+            return Guid.NewGuid().ToString();
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public interface IShoppingCart
     {
-        void AddItemToCart(Product product);
+        void AddItem(Product product);
         decimal GetCartTotal();
     }
 }
