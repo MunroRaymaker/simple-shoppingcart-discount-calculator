@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\DiscountCalculator.Console\DiscountCalculator.Console.csproj" />
+    <ProjectReference Include="..\..\src\DiscountCalculator.Application\DiscountCalculator.Application.csproj" />
   </ItemGroup>
 
 </Project>

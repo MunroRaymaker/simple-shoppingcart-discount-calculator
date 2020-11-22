@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DiscountCalculator.Console.Model
+namespace DiscountCalculator.Application.Model
 {
     public interface IShoppingCart
     {

@@ -1,4 +1,4 @@
-﻿namespace DiscountCalculator.Console.Model
+﻿namespace DiscountCalculator.Application.Model
 {
     public class Discount
     {

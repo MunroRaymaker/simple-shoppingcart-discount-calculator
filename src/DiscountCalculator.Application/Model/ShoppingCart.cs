@@ -1,9 +1,9 @@
-﻿using DiscountCalculator.Console.Persistence;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DiscountCalculator.Application.Persistence;
 
-namespace DiscountCalculator.Console.Model
+namespace DiscountCalculator.Application.Model
 {
     public class ShoppingCart : IShoppingCart
     {

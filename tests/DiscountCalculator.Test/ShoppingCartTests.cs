@@ -1,6 +1,6 @@
+using DiscountCalculator.Application.Model;
+using DiscountCalculator.Application.Persistence;
 using System.Linq;
-using DiscountCalculator.Console.Model;
-using DiscountCalculator.Console.Persistence;
 using Xunit;
 
 namespace DiscountCalculator.Test
@@ -88,7 +88,7 @@ namespace DiscountCalculator.Test
             {
                 shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == sku.ToString()));
             }
-            
+
             // Act
             var actual = shoppingCart.GetCartTotal();
 

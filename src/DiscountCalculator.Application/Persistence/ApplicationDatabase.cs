@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using DiscountCalculator.Console.Model;
+using DiscountCalculator.Application.Model;
 
-namespace DiscountCalculator.Console.Persistence
+namespace DiscountCalculator.Application.Persistence
 {
     public class ApplicationDatabase
     {

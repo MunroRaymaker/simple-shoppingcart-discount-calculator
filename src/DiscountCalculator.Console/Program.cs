@@ -1,13 +1,13 @@
-﻿using System.Diagnostics;
+﻿using DiscountCalculator.Application.Model;
+using DiscountCalculator.Application.Persistence;
+using System.Diagnostics;
 using System.Linq;
-using DiscountCalculator.Console.Model;
-using DiscountCalculator.Console.Persistence;
 
 namespace DiscountCalculator.Console
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             System.Console.WriteLine("***************************");
             System.Console.WriteLine("Simple Discount Calculator.");
