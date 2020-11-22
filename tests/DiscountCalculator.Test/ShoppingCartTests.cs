@@ -8,7 +8,7 @@ namespace DiscountCalculator.Test
     public class ShoppingCartTests
     {
         [Fact]
-        public void when_cart_has_products_should_return_total()
+        public void when_cart_has_no_products_should_return_0()
         {
             // Arrange 
             var shoppingCart = ShoppingCart.GetCart();
@@ -66,6 +66,31 @@ namespace DiscountCalculator.Test
             // Act
             var actual = shoppingCart.GetCartTotal();
             decimal expected = 30;
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData("AAA", 130)]
+        [InlineData("BB", 45)]
+        [InlineData("CCCDDD", 90)]
+        [InlineData("CD", 30)]
+        [InlineData("ABC", 100)]
+        [InlineData("AAAAABBBBBC", 370)]
+        [InlineData("AAABBBBBCD", 280)]
+        public void when_cart_has_items_should_calculate_discount(string productIds, decimal expected)
+        {
+            // Arrange 
+            var shoppingCart = ShoppingCart.GetCart();
+
+            foreach (var sku in productIds)
+            {
+                shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == sku.ToString()));
+            }
+            
+            // Act
+            var actual = shoppingCart.GetCartTotal();
 
             // Assert
             Assert.Equal(expected, actual);

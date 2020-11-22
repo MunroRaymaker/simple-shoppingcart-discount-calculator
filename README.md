@@ -8,7 +8,7 @@ The promotion engine should calculate the total order value, after applying two 
 * Buy N items for a fixed price
 * Buy two different SKUs for a fixed price
 
-The promotion types should be modular to allow for more dicount types to be added at a later date, eg. a promotion could be a % of the normal price.
+The promotion types should be modular to allow for more discount types to be added at a later date, eg. a promotion could be a % of the normal price.
 
 # Test setup
 There are four products with these SKU ids and unit prices:
@@ -22,3 +22,6 @@ There are four products with these SKU ids and unit prices:
 * 2 B's for 45
 * C+D for 30
 
+The unit tests will test these scenarios. 
+
+# Architecture

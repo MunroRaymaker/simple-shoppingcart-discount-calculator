@@ -1,7 +1,7 @@
-﻿using System;
+﻿using DiscountCalculator.Console.Persistence;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using DiscountCalculator.Console.Persistence;
 
 namespace DiscountCalculator.Console.Model
 {
@@ -10,7 +10,7 @@ namespace DiscountCalculator.Console.Model
         private readonly ApplicationDatabase db = ApplicationDatabase.Instance();
 
         private readonly List<Product> items = new List<Product>();
-        
+
         public string ShoppingCartId { get; private set; }
 
         public static ShoppingCart GetCart()
@@ -38,7 +38,18 @@ namespace DiscountCalculator.Console.Model
             {
                 // Count items eligible for discount
                 int eligibleItemsCount = this.items.Count(product => product.SKU == discount.SKU);
-                subtotal -= (int)(eligibleItemsCount / discount.Quantity) * discount.Amount;
+                subtotal -= eligibleItemsCount / discount.Quantity * discount.Amount;
+
+                // Special case for product combo
+                if (discount.SKU.Length == 2)
+                {
+                    var pairs = this.items.Where(i => i.SKU == discount.SKU[0].ToString())
+                        .Zip(
+                            this.items.Where(i => i.SKU == discount.SKU[1].ToString()),
+                            (l, r) => new { Left = l, Right = r }).Count();
+
+                    subtotal -= pairs * discount.Amount;
+                }
             }
 
             return subtotal;
