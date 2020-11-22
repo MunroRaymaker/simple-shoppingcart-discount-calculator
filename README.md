@@ -25,3 +25,12 @@ There are four products with these SKU ids and unit prices:
 Promotions should be mutually exclusive, meaning that there can only be one discount for a given sku. A sku can onkly exist in one promotion.
 
 The unit tests will test these scenarios. 
+
+As a bonus, there's also included a percentage promotion in this solution. This applies to a new product E.
+
+# vNext
+The solution could be enhanced with a rules engine where each promotion could be iterated on the entire shopping cart, instead of relying on a growing switch statement.
+Another posibility is to abstract the logic in the shoppingcart totalizer to dedicated discount classes. Each discount type could have it's own class with logic to calculate the deduction for that promotion.
+
+More discount types could also be added, like buy for X amount and get an item free, or qualify for free shipping.
+A percentage discount for the entire cart could also be added, if the total sum is greater than x.
