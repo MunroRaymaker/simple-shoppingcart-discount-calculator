@@ -57,7 +57,7 @@ namespace DiscountCalculator.Application.Model
 
                     case DiscountType.Percentage:
                         
-                        subtotal -= this.items.Where(i => i.SKU == discount.SKU).Sum(i => i.UnitPrice) * discount.Amount;
+                        subtotal -= Math.Round(this.items.Where(i => i.SKU == discount.SKU).Sum(i => i.UnitPrice) * discount.Amount, 2);
                         break;
                 }
             }
