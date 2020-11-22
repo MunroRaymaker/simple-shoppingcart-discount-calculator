@@ -27,7 +27,16 @@ namespace DiscountCalculator.Console.Model
 
         public decimal GetCartTotal()
         {
-            return this.items.Sum(p => p.UnitPrice);
+            var subtotal = this.items.Sum(p => p.UnitPrice);
+
+            foreach (var discount in this.db.Discounts)
+            {
+                // Count items eligible for discount
+                int eligibleItemsCount = this.items.Count(product => product.SKU == discount.SKU);
+                subtotal -= (int)(eligibleItemsCount / discount.Quantity) * discount.Amount;
+            }
+
+            return subtotal;
         }
 
         private string GetCartId()

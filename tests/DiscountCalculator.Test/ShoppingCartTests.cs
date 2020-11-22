@@ -16,7 +16,7 @@ namespace DiscountCalculator.Test
 
             // Act
             var actual = shoppingCart.GetCartTotal();
-            decimal expected = 100;
+            decimal expected = 0;
 
             // Assert
             Assert.Equal(expected, actual);
