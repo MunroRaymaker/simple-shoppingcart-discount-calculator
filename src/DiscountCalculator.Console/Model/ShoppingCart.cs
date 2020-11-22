@@ -25,6 +25,11 @@ namespace DiscountCalculator.Console.Model
             this.items.Add(product);
         }
 
+        public IList<Product> GetCartItems()
+        {
+            return this.items;
+        }
+
         public decimal GetCartTotal()
         {
             var subtotal = this.items.Sum(p => p.UnitPrice);
