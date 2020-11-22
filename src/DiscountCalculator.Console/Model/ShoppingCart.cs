@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DiscountCalculator.Console.Persistence;
 
 namespace DiscountCalculator.Console.Model
 {
     public class ShoppingCart : IShoppingCart
     {
+        private readonly ApplicationDatabase db = ApplicationDatabase.Instance();
+
         private readonly List<Product> items = new List<Product>();
         
         public string ShoppingCartId { get; private set; }
