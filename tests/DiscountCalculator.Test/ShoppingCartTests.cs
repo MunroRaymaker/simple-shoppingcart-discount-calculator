@@ -71,6 +71,21 @@ namespace DiscountCalculator.Test
             Assert.Equal(expected, actual);
         }
 
+        [Fact]
+        public void when_cart_has_percentage_discount_returns_deducted_total()
+        {
+            // Arrange 
+            var shoppingCart = ShoppingCart.GetCart();
+            shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "E"));
+            
+            // Act
+            var actual = shoppingCart.GetCartTotal();
+            decimal expected = 16;
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
         [Theory]
         [InlineData("AAA", 130)]
         [InlineData("BB", 45)]
@@ -79,6 +94,7 @@ namespace DiscountCalculator.Test
         [InlineData("ABC", 100)]
         [InlineData("AAAAABBBBBC", 370)]
         [InlineData("AAABBBBBCD", 280)]
+        [InlineData("ABCDE", 126)]
         public void when_cart_has_items_should_calculate_discount(string productIds, decimal expected)
         {
             // Arrange 

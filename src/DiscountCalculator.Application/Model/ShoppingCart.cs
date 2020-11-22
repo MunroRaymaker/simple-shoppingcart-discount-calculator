@@ -36,19 +36,29 @@ namespace DiscountCalculator.Application.Model
 
             foreach (var discount in this.db.Discounts)
             {
-                // Count items eligible for discount
-                int eligibleItemsCount = this.items.Count(product => product.SKU == discount.SKU);
-                subtotal -= eligibleItemsCount / discount.Quantity * discount.Amount;
-
-                // Special case for product combo
-                if (discount.SKU.Length == 2)
+                switch (discount.DiscountType)
                 {
-                    var pairs = this.items.Where(i => i.SKU == discount.SKU[0].ToString())
-                        .Zip(
-                            this.items.Where(i => i.SKU == discount.SKU[1].ToString()),
-                            (l, r) => new { Left = l, Right = r }).Count();
+                    case DiscountType.FixedPriceForNDiscount:
+                    
+                        int eligibleItemsCount = this.items.Count(product => product.SKU == discount.SKU);
+                        subtotal -= eligibleItemsCount / discount.Quantity * discount.Amount;
 
-                    subtotal -= pairs * discount.Amount;
+                        break;
+
+                    case DiscountType.FixedPriceForTwoSkusDiscount:
+
+                        var pairs = this.items.Where(i => i.SKU == discount.SKU[0].ToString())
+                            .Zip(
+                                this.items.Where(i => i.SKU == discount.SKU[1].ToString()),
+                                (l, r) => new { Left = l, Right = r }).Count();
+
+                        subtotal -= pairs * discount.Amount;
+                        break;
+
+                    case DiscountType.Percentage:
+                        
+                        subtotal -= this.items.Where(i => i.SKU == discount.SKU).Sum(i => i.UnitPrice) * discount.Amount;
+                        break;
                 }
             }
 
