@@ -1,5 +1,6 @@
 using System;
 using DiscountCalculator.Console;
+using DiscountCalculator.Console.Model;
 using Xunit;
 
 namespace DiscountCalculator.Test
