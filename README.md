@@ -22,6 +22,6 @@ There are four products with these SKU ids and unit prices:
 * 2 B's for 45
 * C+D for 30
 
-The unit tests will test these scenarios. 
+Promotions should be mutually exclusive, meaning that there can only be one discount for a given sku. A sku can onkly exist in one promotion.
 
-# Architecture
+The unit tests will test these scenarios. 
