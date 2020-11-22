@@ -1,4 +1,6 @@
+using System.Linq;
 using DiscountCalculator.Console.Model;
+using DiscountCalculator.Console.Persistence;
 using Xunit;
 
 namespace DiscountCalculator.Test
@@ -25,9 +27,9 @@ namespace DiscountCalculator.Test
         {
             // Arrange 
             var shoppingCart = ShoppingCart.GetCart();
-            shoppingCart.AddItem(new Product { Name = "Apple", SKU = "A", UnitPrice = 50 });
-            shoppingCart.AddItem(new Product { Name = "Apple", SKU = "A", UnitPrice = 50 });
-            shoppingCart.AddItem(new Product { Name = "Apple", SKU = "A", UnitPrice = 50 });
+            shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "A"));
+            shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "A"));
+            shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "A"));
 
             // Act
             var actual = shoppingCart.GetCartTotal();
@@ -42,8 +44,8 @@ namespace DiscountCalculator.Test
         {
             // Arrange 
             var shoppingCart = ShoppingCart.GetCart();
-            shoppingCart.AddItem(new Product { Name = "Banana", SKU = "B", UnitPrice = 30 });
-            shoppingCart.AddItem(new Product { Name = "Banana", SKU = "B", UnitPrice = 30 });
+            shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "B"));
+            shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "B"));
 
             // Act
             var actual = shoppingCart.GetCartTotal();
@@ -58,8 +60,8 @@ namespace DiscountCalculator.Test
         {
             // Arrange 
             var shoppingCart = ShoppingCart.GetCart();
-            shoppingCart.AddItem(new Product { Name = "Carrot", SKU = "C", UnitPrice = 20 });
-            shoppingCart.AddItem(new Product { Name = "Dates", SKU = "D", UnitPrice = 15 });
+            shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "C"));
+            shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "D"));
 
             // Act
             var actual = shoppingCart.GetCartTotal();
