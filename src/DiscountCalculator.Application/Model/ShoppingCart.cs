@@ -34,6 +34,8 @@ namespace DiscountCalculator.Application.Model
         {
             var subtotal = this.items.Sum(p => p.UnitPrice);
 
+            if (!this.items.Any()) return 0;
+
             foreach (var discount in this.db.Discounts)
             {
                 switch (discount.DiscountType)
@@ -47,6 +49,8 @@ namespace DiscountCalculator.Application.Model
 
                     case DiscountType.FixedPriceForTwoSkusDiscount:
 
+                        // We assume this discount has two sku's, eg. CD.
+                        // Zip applies a specified function to the corresponding elements of two sequences, producing a sequence of the results.
                         var pairs = this.items.Where(i => i.SKU == discount.SKU[0].ToString())
                             .Zip(
                                 this.items.Where(i => i.SKU == discount.SKU[1].ToString()),

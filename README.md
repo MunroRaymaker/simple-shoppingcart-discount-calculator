@@ -22,11 +22,27 @@ There are four products with these SKU ids and unit prices:
 * 2 B's for 45
 * C+D for 30
 
-Promotions should be mutually exclusive, meaning that there can only be one discount for a given sku. A sku can onkly exist in one promotion.
+Promotions should be mutually exclusive, meaning that there can only be one discount for a given sku. A sku can only exist in one promotion.
 
 The unit tests will test these scenarios. 
 
 As a bonus, there's also included a percentage promotion in this solution. This applies to a new product E.
+
+# Normal prices
+
++ Apples (A): 50
++ Bananas (B): 30
++ Carrots (C): 20
++ Dates (D): 15
++ Eggplant (E): 20
+
+# Active promotions
+* buy n items for fixed price 
+* buy two different SKUs for fixed price
+             
+3 x A = 130
+2 x B = 45
+C+D = 30
 
 # vNext
 The solution could be enhanced with a rules engine where each promotion could be iterated on the entire shopping cart, instead of relying on a growing switch statement.

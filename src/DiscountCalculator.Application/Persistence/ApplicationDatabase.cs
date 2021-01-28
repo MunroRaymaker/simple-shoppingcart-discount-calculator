@@ -12,6 +12,7 @@ namespace DiscountCalculator.Application.Persistence
             Seed();
         }
 
+        // Singleton pattern
         public static ApplicationDatabase Instance() => instance;
         
         public IList<Product> Products { get; set; } = new List<Product>();
