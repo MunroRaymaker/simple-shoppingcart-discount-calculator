@@ -7,6 +7,8 @@ namespace DiscountCalculator.Console
 {
     internal class Program
     {
+        private static ApplicationDatabase db = ApplicationDatabase.Instance();
+
         private static void Main(string[] args)
         {
             System.Console.WriteLine("***************************");
@@ -16,33 +18,36 @@ namespace DiscountCalculator.Console
             var cart = ShoppingCart.GetCart();
 
             // Add 3 A's to cart
-            var item = ApplicationDatabase.Instance().Products.Single(p => p.SKU == "A");
+            var item = db.Products.Single(p => p.SKU == "A");
             cart.AddItem(item);
             cart.AddItem(item);
             cart.AddItem(item);
 
             // Add 2 B's to cart
-            item = ApplicationDatabase.Instance().Products.Single(p => p.SKU == "B");
+            item = db.Products.Single(p => p.SKU == "B");
             cart.AddItem(item);
             cart.AddItem(item);
 
             // Add 1 C's to cart
-            item = ApplicationDatabase.Instance().Products.Single(p => p.SKU == "C");
+            item = db.Products.Single(p => p.SKU == "C");
             cart.AddItem(item);
 
             // Add 1 D's to cart
-            item = ApplicationDatabase.Instance().Products.Single(p => p.SKU == "D");
+            item = db.Products.Single(p => p.SKU == "D");
             cart.AddItem(item);
 
             // Get Cart total
             var total = cart.GetCartTotal();
+            var subtotal = cart.GetCartItems().Sum(p => p.UnitPrice);
 
             foreach (var cartItem in cart.GetCartItems())
             {
                 System.Console.WriteLine($"{cartItem.SKU} | {cartItem.Name.PadRight(10)} | Price: {cartItem.UnitPrice} ");
             }
 
-            System.Console.WriteLine($"Cart with id '{cart.ShoppingCartId}' has total of {total}.");
+            System.Console.WriteLine($"==========================================");
+            System.Console.WriteLine($"Cart subtotal: {subtotal:F2}.");
+            System.Console.WriteLine($"Cart with id '{cart.ShoppingCartId}' has discounted total of {total:F2}.");
 
             /* Discount
              * buy n items for fixed price 
