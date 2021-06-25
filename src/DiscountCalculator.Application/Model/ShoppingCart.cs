@@ -8,7 +8,6 @@ namespace DiscountCalculator.Application.Model
     public class ShoppingCart : IShoppingCart
     {
         private readonly List<Product> items = new List<Product>();
-        private readonly List<BasePromotionCalculator> promotions;
         private readonly PromotionCalculator calculator;
 
         public string ShoppingCartId { get; private set; }
@@ -20,13 +19,13 @@ namespace DiscountCalculator.Application.Model
             // Calculate discounts
             // Adds discounts by "reversing" the logic. Eg. a fixed price of 130 for three A's would equal a deduction of 20 for 3.
 
-            promotions = new List<BasePromotionCalculator>
-                {
-                    new FixedPriceForTwoSkusDiscountCalculator(this){ SKU = "CD", Amount = 5, Quantity = 1},
-                    new FixedPriceForNDiscountCalculator(this){ SKU = "A", Amount = 20, Quantity = 3},
-                    new FixedPriceForNDiscountCalculator(this){ SKU = "B", Amount = 15, Quantity = 2},
-                    new PercentageDiscountCalculator(this) { SKU = "E", Amount = 0.2m, Quantity = 1}
-                };
+            var promotions = new List<BasePromotionCalculator>
+            {
+                new FixedPriceForTwoSkusDiscountCalculator(this){ SKU = "CD", Amount = 5, Quantity = 1},
+                new FixedPriceForNDiscountCalculator(this){ SKU = "A", Amount = 20, Quantity = 3},
+                new FixedPriceForNDiscountCalculator(this){ SKU = "B", Amount = 15, Quantity = 2},
+                new PercentageDiscountCalculator(this) { SKU = "E", Amount = 0.2m, Quantity = 1}
+            };
 
             calculator = new PromotionCalculator(promotions);
         }
