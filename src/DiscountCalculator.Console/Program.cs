@@ -17,7 +17,7 @@ namespace DiscountCalculator.Console
             System.Console.WriteLine("Simple Discount Calculator.");
             System.Console.WriteLine("***************************");
 
-            var cart = ShoppingCart.GetCart();
+            var cart = new ShoppingCart();
 
             // Add 3 A's to cart
             var item = db.Products.Single(p => p.SKU == "A");
@@ -45,9 +45,7 @@ namespace DiscountCalculator.Console
             {
                 System.Console.WriteLine($"{cartItem.SKU} | {cartItem.Name.PadRight(10)} | Price: {cartItem.UnitPrice} ");
             }
-
-
-
+            
             /*             
              * Discount
              * buy n items for fixed price 
@@ -64,19 +62,8 @@ namespace DiscountCalculator.Console
              * C 20
              * D 15             
              */
-
-            // Calculate discounts
-            // Adds discounts by "reversing" the logic. Eg. a fixed price of 130 for three A's would equal a deduction of 20 for 3.
-            var discounts = new List<BasePromotionCalculator>
-            {                
-                new FixedPriceForTwoSkusDiscountCalculator(cart){ SKU = "CD", Amount = 5, Quantity = 1},
-                new FixedPriceForNDiscountCalculator(cart){ SKU = "A", Amount = 20, Quantity = 3},
-                new FixedPriceForNDiscountCalculator(cart){ SKU = "B", Amount = 15, Quantity = 2},
-                new PercentageDiscountCalculator(cart) { SKU = "E", Amount = 0.2m, Quantity = 1}
-            };
-
-            var calculator = new PromotionCalculator(discounts);
-            var discountTotal = calculator.CalculateTotalPromotions();
+            
+            var discountTotal = cart.GetPromotionsTotal();
 
             System.Console.WriteLine($"==========================================");
             System.Console.WriteLine($"Cart subtotal: {subtotal:F2}.");
