@@ -35,37 +35,7 @@ namespace DiscountCalculator.Application.Model
             var subtotal = this.items.Sum(p => p.UnitPrice);
 
             if (!this.items.Any()) return 0;
-
-            foreach (var discount in this.db.Discounts)
-            {
-                switch (discount.DiscountType)
-                {
-                    case DiscountType.FixedPriceForNDiscount:
-                    
-                        int eligibleItemsCount = this.items.Count(product => product.SKU == discount.SKU);
-                        subtotal -= eligibleItemsCount / discount.Quantity * discount.Amount;
-
-                        break;
-
-                    case DiscountType.FixedPriceForTwoSkusDiscount:
-
-                        // We assume this discount has two sku's, eg. CD.
-                        // Zip applies a specified function to the corresponding elements of two sequences, producing a sequence of the results.
-                        var pairs = this.items.Where(i => i.SKU == discount.SKU[0].ToString())
-                            .Zip(
-                                this.items.Where(i => i.SKU == discount.SKU[1].ToString()),
-                                (l, r) => new { Left = l, Right = r }).Count();
-
-                        subtotal -= pairs * discount.Amount;
-                        break;
-
-                    case DiscountType.Percentage:
                         
-                        subtotal -= Math.Round(this.items.Where(i => i.SKU == discount.SKU).Sum(i => i.UnitPrice) * discount.Amount, 2);
-                        break;
-                }
-            }
-
             return subtotal;
         }
 
