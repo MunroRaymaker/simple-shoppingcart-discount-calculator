@@ -18,7 +18,7 @@ namespace DiscountCalculator.Application.Model
 
             // Calculate discounts
             // Adds discounts by "reversing" the logic. Eg. a fixed price of 130 for three A's would equal a deduction of 20 for 3.
-
+            // TODO Move out of shoppingcart because it violates the single responsibility principle.
             var promotions = new List<BasePromotionCalculator>
             {
                 new FixedPriceForTwoSkusDiscountCalculator(this){ SKU = "CD", Amount = 5, Quantity = 1},
