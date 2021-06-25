@@ -6,11 +6,7 @@ namespace DiscountCalculator.Application.Promotion
     public class FixedPriceForTwoSkusDiscountCalculator : BasePromotionCalculator
     {
         public FixedPriceForTwoSkusDiscountCalculator(ShoppingCart cart) : base(cart){ }
-
-        public override string SKU { get; set; }
-        public override decimal Amount { get; set; }
-        public override int Quantity { get; set; }
-
+        
         public override decimal CalculatePromotion()
         {
             // We assume this discount has two sku's, eg. CD.

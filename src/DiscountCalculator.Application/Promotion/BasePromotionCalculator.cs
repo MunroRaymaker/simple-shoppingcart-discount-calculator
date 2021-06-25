@@ -11,11 +11,11 @@ namespace DiscountCalculator.Application.Promotion
 
         protected ShoppingCart ShoppingCart { get; }
 
-        public abstract string SKU { get; set; }
+        public string SKU { get; set; }
 
-        public abstract decimal Amount { get; set; }
+        public decimal Amount { get; set; }
 
-        public abstract int Quantity { get; set; }
+        public int Quantity { get; set; }
         
         public abstract decimal CalculatePromotion();
     }
