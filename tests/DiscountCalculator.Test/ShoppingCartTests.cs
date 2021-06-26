@@ -1,6 +1,5 @@
 using DiscountCalculator.Application.Model;
 using DiscountCalculator.Application.Persistence;
-using System.Linq;
 using DiscountCalculator.Application.Promotion;
 using Xunit;
 
@@ -8,6 +7,8 @@ namespace DiscountCalculator.Test
 {
     public class ShoppingCartTests
     {
+        private readonly ApplicationDatabase db = ApplicationDatabase.Instance();
+
         [Fact]
         public void when_cart_has_no_products_should_return_0()
         {
@@ -29,9 +30,9 @@ namespace DiscountCalculator.Test
         {
             // Arrange 
             var shoppingCart = new ShoppingCart();
-            shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "A"));
-            shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "A"));
-            shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "A"));
+            shoppingCart.AddItem(db.GetProductBySku("A"));
+            shoppingCart.AddItem(db.GetProductBySku("A"));
+            shoppingCart.AddItem(db.GetProductBySku("A"));
             var calculator = new PromotionCalculator(shoppingCart);
 
             // Act
@@ -47,8 +48,8 @@ namespace DiscountCalculator.Test
         {
             // Arrange 
             var shoppingCart = new ShoppingCart();
-            shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "B"));
-            shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "B"));
+            shoppingCart.AddItem(db.GetProductBySku("B"));
+            shoppingCart.AddItem(db.GetProductBySku("B"));
             var calculator = new PromotionCalculator(shoppingCart);
 
             // Act
@@ -64,8 +65,8 @@ namespace DiscountCalculator.Test
         {
             // Arrange 
             var shoppingCart = new ShoppingCart();
-            shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "C"));
-            shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "D"));
+            shoppingCart.AddItem(db.GetProductBySku("C"));
+            shoppingCart.AddItem(db.GetProductBySku("D"));
             var calculator = new PromotionCalculator(shoppingCart);
 
             // Act
@@ -81,7 +82,7 @@ namespace DiscountCalculator.Test
         {
             // Arrange 
             var shoppingCart = new ShoppingCart();
-            shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "E"));
+            shoppingCart.AddItem(db.GetProductBySku("E"));
             var calculator = new PromotionCalculator(shoppingCart);
 
             // Act
@@ -108,7 +109,7 @@ namespace DiscountCalculator.Test
 
             foreach (var sku in productIds)
             {
-                shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == sku.ToString()));
+                shoppingCart.AddItem(db.GetProductBySku(sku.ToString()));
             }
             var calculator = new PromotionCalculator(shoppingCart);
 

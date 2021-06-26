@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DiscountCalculator.Application.Model;
 
 namespace DiscountCalculator.Application.Persistence
@@ -18,6 +19,11 @@ namespace DiscountCalculator.Application.Persistence
         public static ApplicationDatabase Instance()
         {
             return instance;
+        }
+
+        public Product GetProductBySku(string sku)
+        {
+            return Products.SingleOrDefault(p => p.SKU.Equals(sku));
         }
 
         private void Seed()

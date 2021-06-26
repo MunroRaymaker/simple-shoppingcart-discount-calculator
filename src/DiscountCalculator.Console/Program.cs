@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using DiscountCalculator.Application.Model;
+﻿using DiscountCalculator.Application.Model;
 using DiscountCalculator.Application.Persistence;
-using System.Diagnostics;
-using System.Linq;
 using DiscountCalculator.Application.Promotion;
+using System.Diagnostics;
 
 namespace DiscountCalculator.Console
 {
@@ -20,23 +18,19 @@ namespace DiscountCalculator.Console
             var cart = new ShoppingCart();
 
             // Add 3 A's to cart
-            var item = db.Products.Single(p => p.SKU == "A");
-            cart.AddItem(item);
-            cart.AddItem(item);
-            cart.AddItem(item);
+            cart.AddItem(db.GetProductBySku("A"));
+            cart.AddItem(db.GetProductBySku("A"));
+            cart.AddItem(db.GetProductBySku("A"));
 
             // Add 2 B's to cart
-            item = db.Products.Single(p => p.SKU == "B");
-            cart.AddItem(item);
-            cart.AddItem(item);
+            cart.AddItem(db.GetProductBySku("B"));
+            cart.AddItem(db.GetProductBySku("B"));
 
             // Add 1 C's to cart
-            item = db.Products.Single(p => p.SKU == "C");
-            cart.AddItem(item);
+            cart.AddItem(db.GetProductBySku("C"));
 
             // Add 1 D's to cart
-            item = db.Products.Single(p => p.SKU == "D");
-            cart.AddItem(item);
+            cart.AddItem(db.GetProductBySku("D"));
 
             // Get Cart total
             var subtotal = cart.GetCartTotal();
