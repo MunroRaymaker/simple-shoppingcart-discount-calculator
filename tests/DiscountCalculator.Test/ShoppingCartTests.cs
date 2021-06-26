@@ -1,22 +1,23 @@
 using DiscountCalculator.Application.Model;
 using DiscountCalculator.Application.Persistence;
 using System.Linq;
+using DiscountCalculator.Application.Promotion;
 using Xunit;
 
 namespace DiscountCalculator.Test
 {
     public class ShoppingCartTests
-    {      
-
+    {
         [Fact]
         public void when_cart_has_no_products_should_return_0()
         {
             // Arrange 
             var shoppingCart = new ShoppingCart();
             shoppingCart.AddItem(new Product());
+            var calculator = new PromotionCalculator(shoppingCart);
 
             // Act
-            var actual = shoppingCart.GetCartTotal() - shoppingCart.GetPromotionsTotal();
+            var actual = shoppingCart.GetCartTotal() - calculator.CalculateTotalPromotions();
             decimal expected = 0;
 
             // Assert
@@ -31,9 +32,10 @@ namespace DiscountCalculator.Test
             shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "A"));
             shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "A"));
             shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "A"));
+            var calculator = new PromotionCalculator(shoppingCart);
 
             // Act
-            var actual = shoppingCart.GetCartTotal() - shoppingCart.GetPromotionsTotal();
+            var actual = shoppingCart.GetCartTotal() - calculator.CalculateTotalPromotions();
             decimal expected = 130;
 
             // Assert
@@ -47,9 +49,10 @@ namespace DiscountCalculator.Test
             var shoppingCart = new ShoppingCart();
             shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "B"));
             shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "B"));
+            var calculator = new PromotionCalculator(shoppingCart);
 
             // Act
-            var actual = shoppingCart.GetCartTotal() - shoppingCart.GetPromotionsTotal();
+            var actual = shoppingCart.GetCartTotal() - calculator.CalculateTotalPromotions();
             decimal expected = 45;
 
             // Assert
@@ -63,9 +66,10 @@ namespace DiscountCalculator.Test
             var shoppingCart = new ShoppingCart();
             shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "C"));
             shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "D"));
+            var calculator = new PromotionCalculator(shoppingCart);
 
             // Act
-            var actual = shoppingCart.GetCartTotal() - shoppingCart.GetPromotionsTotal();
+            var actual = shoppingCart.GetCartTotal() - calculator.CalculateTotalPromotions();
             decimal expected = 30;
 
             // Assert
@@ -78,9 +82,10 @@ namespace DiscountCalculator.Test
             // Arrange 
             var shoppingCart = new ShoppingCart();
             shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == "E"));
-            
+            var calculator = new PromotionCalculator(shoppingCart);
+
             // Act
-            var actual = shoppingCart.GetCartTotal() - shoppingCart.GetPromotionsTotal();
+            var actual = shoppingCart.GetCartTotal() - calculator.CalculateTotalPromotions();
             decimal expected = 16;
 
             // Assert
@@ -105,9 +110,10 @@ namespace DiscountCalculator.Test
             {
                 shoppingCart.AddItem(ApplicationDatabase.Instance().Products.Single(p => p.SKU == sku.ToString()));
             }
+            var calculator = new PromotionCalculator(shoppingCart);
 
             // Act
-            var actual = shoppingCart.GetCartTotal() - shoppingCart.GetPromotionsTotal();
+            var actual = shoppingCart.GetCartTotal() - calculator.CalculateTotalPromotions();
 
             // Assert
             Assert.Equal(expected, actual);

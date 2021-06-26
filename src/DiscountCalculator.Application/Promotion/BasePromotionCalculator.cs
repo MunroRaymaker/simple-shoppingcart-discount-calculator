@@ -16,7 +16,7 @@ namespace DiscountCalculator.Application.Promotion
         public decimal Amount { get; set; }
 
         public int Quantity { get; set; }
-        
+
         public abstract decimal CalculatePromotion();
     }
 }

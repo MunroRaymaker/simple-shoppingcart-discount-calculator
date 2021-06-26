@@ -1,15 +1,15 @@
-﻿using DiscountCalculator.Application.Model;
+﻿using System.Collections.Generic;
+using DiscountCalculator.Application.Model;
 using DiscountCalculator.Application.Persistence;
-using DiscountCalculator.Application.Promotion;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using DiscountCalculator.Application.Promotion;
 
 namespace DiscountCalculator.Console
 {
     internal class Program
     {
-        private static ApplicationDatabase db = ApplicationDatabase.Instance();
+        private static readonly ApplicationDatabase db = ApplicationDatabase.Instance();
 
         private static void Main(string[] args)
         {
@@ -63,7 +63,8 @@ namespace DiscountCalculator.Console
              * D 15             
              */
             
-            var discountTotal = cart.GetPromotionsTotal();
+            var calculator = new PromotionCalculator(cart);
+            var discountTotal = calculator.CalculateTotalPromotions();
 
             System.Console.WriteLine($"==========================================");
             System.Console.WriteLine($"Cart subtotal: {subtotal:F2}.");

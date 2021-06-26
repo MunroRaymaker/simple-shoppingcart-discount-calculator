@@ -12,18 +12,21 @@ namespace DiscountCalculator.Application.Persistence
             Seed();
         }
 
-        // Singleton pattern
-        public static ApplicationDatabase Instance() => instance;
-        
         public IList<Product> Products { get; set; } = new List<Product>();
-                
+
+        // Singleton pattern
+        public static ApplicationDatabase Instance()
+        {
+            return instance;
+        }
+
         private void Seed()
         {
-            this.Products.Add(new Product { SKU = "A", Name = "Apples", UnitPrice = 50 });
-            this.Products.Add(new Product { SKU = "B", Name = "Bananas", UnitPrice = 30 });
-            this.Products.Add(new Product { SKU = "C", Name = "Carrots", UnitPrice = 20 });
-            this.Products.Add(new Product { SKU = "D", Name = "Dates", UnitPrice = 15 });
-            this.Products.Add(new Product { SKU = "E", Name = "Eggplant", UnitPrice = 20 });
+            Products.Add(new Product {SKU = "A", Name = "Apples", UnitPrice = 50});
+            Products.Add(new Product {SKU = "B", Name = "Bananas", UnitPrice = 30});
+            Products.Add(new Product {SKU = "C", Name = "Carrots", UnitPrice = 20});
+            Products.Add(new Product {SKU = "D", Name = "Dates", UnitPrice = 15});
+            Products.Add(new Product {SKU = "E", Name = "Eggplant", UnitPrice = 20});
         }
     }
 }
