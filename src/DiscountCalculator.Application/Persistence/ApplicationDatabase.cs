@@ -13,8 +13,7 @@ namespace DiscountCalculator.Application.Persistence
         }
 
         public IDictionary<string, Product> Products { get; set; } = new Dictionary<string, Product>();
-
-        // Singleton pattern
+        
         public static ApplicationDatabase Instance()
         {
             return instance;
