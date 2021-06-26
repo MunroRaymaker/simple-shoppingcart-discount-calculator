@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using DiscountCalculator.Application.Model;
+﻿using DiscountCalculator.Application.Model;
+using System.Collections.Generic;
 
 namespace DiscountCalculator.Application.Persistence
 {
@@ -13,7 +12,7 @@ namespace DiscountCalculator.Application.Persistence
             Seed();
         }
 
-        public IList<Product> Products { get; set; } = new List<Product>();
+        public IDictionary<string, Product> Products { get; set; } = new Dictionary<string, Product>();
 
         // Singleton pattern
         public static ApplicationDatabase Instance()
@@ -23,16 +22,17 @@ namespace DiscountCalculator.Application.Persistence
 
         public Product GetProductBySku(string sku)
         {
-            return Products.SingleOrDefault(p => p.SKU.Equals(sku));
+            Products.TryGetValue(sku, out var product);
+            return product;
         }
 
         private void Seed()
         {
-            Products.Add(new Product {SKU = "A", Name = "Apples", UnitPrice = 50});
-            Products.Add(new Product {SKU = "B", Name = "Bananas", UnitPrice = 30});
-            Products.Add(new Product {SKU = "C", Name = "Carrots", UnitPrice = 20});
-            Products.Add(new Product {SKU = "D", Name = "Dates", UnitPrice = 15});
-            Products.Add(new Product {SKU = "E", Name = "Eggplant", UnitPrice = 20});
+            Products.Add("A", new Product {SKU = "A", Name = "Apples", UnitPrice = 50});
+            Products.Add("B", new Product {SKU = "B", Name = "Bananas", UnitPrice = 30});
+            Products.Add("C", new Product {SKU = "C", Name = "Carrots", UnitPrice = 20});
+            Products.Add("D", new Product {SKU = "D", Name = "Dates", UnitPrice = 15});
+            Products.Add("E", new Product {SKU = "E", Name = "Eggplant", UnitPrice = 20});
         }
     }
 }
