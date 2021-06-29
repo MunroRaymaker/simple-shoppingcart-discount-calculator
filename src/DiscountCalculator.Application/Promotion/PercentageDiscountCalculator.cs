@@ -6,11 +6,9 @@ namespace DiscountCalculator.Application.Promotion
 {
     public class PercentageDiscountCalculator : BasePromotionCalculator
     {
-        public PercentageDiscountCalculator(ShoppingCart cart) : base(cart) { }
-
-        public override decimal CalculatePromotion()
+        public override decimal CalculatePromotion(ShoppingCart cart)
         {
-            var discount = Math.Round(ShoppingCart.GetCartItems()
+            var discount = Math.Round(cart.GetCartItems()
                     .Where(i => i.SKU == SKU)
                     .Sum(i => i.UnitPrice * Amount)
                 , 2);

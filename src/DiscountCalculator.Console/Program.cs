@@ -47,8 +47,8 @@ namespace DiscountCalculator.Console
                 System.Console.WriteLine($"{cartItem.SKU} | {cartItem.Name.PadRight(10)} | Price: {cartItem.UnitPrice} ");
             }
             
-            var calculator = new PromotionCalculator(cart);
-            var discountTotal = calculator.CalculateTotalPromotions();
+            var calculator = new PromotionCalculator();
+            var discountTotal = calculator.CalculateTotalPromotions(cart);
 
             System.Console.WriteLine($"==========================================");
             System.Console.WriteLine($"Cart subtotal: {subtotal:F2}.");
