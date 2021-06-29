@@ -6,6 +6,6 @@ namespace DiscountCalculator.Application.Model
     {
         void AddItem(Product product);
         IList<Product> GetCartItems();
-        decimal GetCartTotal();
+        decimal GetCartSubTotal();
     }
 }

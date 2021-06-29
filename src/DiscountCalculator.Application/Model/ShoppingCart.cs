@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DiscountCalculator.Application.Promotion;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,10 +7,12 @@ namespace DiscountCalculator.Application.Model
 {
     public class ShoppingCart : IShoppingCart
     {
+        private readonly IPromotionCalculator promotionCalculator;
         private readonly List<Product> items = new List<Product>();
 
-        public ShoppingCart()
+        public ShoppingCart(IPromotionCalculator promotionCalculator)
         {
+            this.promotionCalculator = promotionCalculator ?? throw new ArgumentNullException(nameof(promotionCalculator));
             ShoppingCartId = GetCartId();
         }
 
@@ -25,7 +28,7 @@ namespace DiscountCalculator.Application.Model
             return items;
         }
 
-        public decimal GetCartTotal()
+        public decimal GetCartSubTotal()
         {
             var subtotal = items.Sum(p => p.UnitPrice);
 
@@ -36,7 +39,17 @@ namespace DiscountCalculator.Application.Model
 
             return subtotal;
         }
-        
+
+        public decimal GetTotalPromotions()
+        {
+            return promotionCalculator.CalculateTotalPromotions(this);
+        }
+
+        public decimal GetCartTotalWithPromotions()
+        {
+            return GetCartSubTotal() - GetTotalPromotions();
+        }
+
         private string GetCartId()
         {
             return Guid.NewGuid().ToString();

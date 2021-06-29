@@ -3,7 +3,7 @@ using DiscountCalculator.Application.Model;
 
 namespace DiscountCalculator.Application.Promotion
 {
-    public class PromotionCalculator
+    public class PromotionCalculator : IPromotionCalculator
     {
         private readonly IEnumerable<BasePromotionCalculator> promotionCalculators;
 
@@ -19,7 +19,7 @@ namespace DiscountCalculator.Application.Promotion
                 new FixedPriceForNDiscountCalculator {SKU = "B", Amount = 15, Quantity = 2},
                 new PercentageDiscountCalculator {SKU = "E", Amount = 0.2m, Quantity = 1}
             };
-            
+
             this.promotionCalculators = promotions;
         }
 

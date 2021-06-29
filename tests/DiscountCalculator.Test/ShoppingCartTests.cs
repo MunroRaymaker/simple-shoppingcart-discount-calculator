@@ -12,12 +12,11 @@ namespace DiscountCalculator.Test
         public void when_cart_has_no_products_should_return_0()
         {
             // Arrange 
-            var shoppingCart = new ShoppingCart();
+            var shoppingCart = new ShoppingCart(new PromotionCalculator());
             shoppingCart.AddItem(new Product());
-            var calculator = new PromotionCalculator();
 
             // Act
-            var actual = shoppingCart.GetCartTotal() - calculator.CalculateTotalPromotions(shoppingCart);
+            var actual = shoppingCart.GetCartTotalWithPromotions();
             decimal expected = 0;
 
             // Assert
@@ -28,14 +27,13 @@ namespace DiscountCalculator.Test
         public void when_cart_has_discount_products_should_return_discounted_total()
         {
             // Arrange 
-            var shoppingCart = new ShoppingCart();
+            var shoppingCart = new ShoppingCart(new PromotionCalculator());
             shoppingCart.AddItem(db.GetProductBySku("A"));
             shoppingCart.AddItem(db.GetProductBySku("A"));
             shoppingCart.AddItem(db.GetProductBySku("A"));
-            var calculator = new PromotionCalculator();
 
             // Act
-            var actual = shoppingCart.GetCartTotal() - calculator.CalculateTotalPromotions(shoppingCart);
+            var actual = shoppingCart.GetCartTotalWithPromotions();
             decimal expected = 130;
 
             // Assert
@@ -46,13 +44,12 @@ namespace DiscountCalculator.Test
         public void when_cart_has_two_discount_products_should_return_discounted_total()
         {
             // Arrange 
-            var shoppingCart = new ShoppingCart();
+            var shoppingCart = new ShoppingCart(new PromotionCalculator());
             shoppingCart.AddItem(db.GetProductBySku("B"));
             shoppingCart.AddItem(db.GetProductBySku("B"));
-            var calculator = new PromotionCalculator();
 
             // Act
-            var actual = shoppingCart.GetCartTotal() - calculator.CalculateTotalPromotions(shoppingCart);
+            var actual = shoppingCart.GetCartTotalWithPromotions();
             decimal expected = 45;
 
             // Assert
@@ -63,13 +60,12 @@ namespace DiscountCalculator.Test
         public void when_cart_has_product_combo_should_return_discounted_total()
         {
             // Arrange 
-            var shoppingCart = new ShoppingCart();
+            var shoppingCart = new ShoppingCart(new PromotionCalculator());
             shoppingCart.AddItem(db.GetProductBySku("C"));
             shoppingCart.AddItem(db.GetProductBySku("D"));
-            var calculator = new PromotionCalculator();
 
             // Act
-            var actual = shoppingCart.GetCartTotal() - calculator.CalculateTotalPromotions(shoppingCart);
+            var actual = shoppingCart.GetCartTotalWithPromotions();
             decimal expected = 30;
 
             // Assert
@@ -80,12 +76,11 @@ namespace DiscountCalculator.Test
         public void when_cart_has_percentage_discount_returns_deducted_total()
         {
             // Arrange 
-            var shoppingCart = new ShoppingCart();
+            var shoppingCart = new ShoppingCart(new PromotionCalculator());
             shoppingCart.AddItem(db.GetProductBySku("E"));
-            var calculator = new PromotionCalculator();
 
             // Act
-            var actual = shoppingCart.GetCartTotal() - calculator.CalculateTotalPromotions(shoppingCart);
+            var actual = shoppingCart.GetCartTotalWithPromotions();
             decimal expected = 16;
 
             // Assert
@@ -104,16 +99,15 @@ namespace DiscountCalculator.Test
         public void when_cart_has_items_should_calculate_discount(string productIds, decimal expected)
         {
             // Arrange 
-            var shoppingCart = new ShoppingCart();
+            var shoppingCart = new ShoppingCart(new PromotionCalculator());
 
             foreach (var sku in productIds)
             {
                 shoppingCart.AddItem(db.GetProductBySku(sku.ToString()));
             }
-            var calculator = new PromotionCalculator();
 
             // Act
-            var actual = shoppingCart.GetCartTotal() - calculator.CalculateTotalPromotions(shoppingCart);
+            var actual = shoppingCart.GetCartTotalWithPromotions();
 
             // Assert
             Assert.Equal(expected, actual);

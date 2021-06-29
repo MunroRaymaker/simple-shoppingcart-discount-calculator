@@ -30,7 +30,7 @@ namespace DiscountCalculator.Console
             System.Console.WriteLine("Simple Discount Calculator.");
             System.Console.WriteLine("***************************");
 
-            var cart = new ShoppingCart();
+            var cart = new ShoppingCart(new PromotionCalculator());
 
             cart.AddItem(db.GetProductBySku("A"));
             cart.AddItem(db.GetProductBySku("A"));
@@ -40,20 +40,20 @@ namespace DiscountCalculator.Console
             cart.AddItem(db.GetProductBySku("C"));
             cart.AddItem(db.GetProductBySku("D"));
 
-            var subtotal = cart.GetCartTotal();
 
             foreach (var cartItem in cart.GetCartItems())
             {
                 System.Console.WriteLine($"{cartItem.SKU} | {cartItem.Name.PadRight(10)} | Price: {cartItem.UnitPrice} ");
             }
             
-            var calculator = new PromotionCalculator();
-            var discountTotal = calculator.CalculateTotalPromotions(cart);
+            var subtotal = cart.GetCartSubTotal();
+            var discountTotal = cart.GetTotalPromotions();
+            var total = cart.GetCartTotalWithPromotions();
 
             System.Console.WriteLine($"==========================================");
             System.Console.WriteLine($"Cart subtotal: {subtotal:F2}.");
             System.Console.WriteLine($"Cart discount subtotal: {discountTotal:F2}.");
-            System.Console.WriteLine($"Cart with id '{cart.ShoppingCartId}' has discounted total of {subtotal - discountTotal:F2}.");
+            System.Console.WriteLine($"Cart with id '{cart.ShoppingCartId}' has discounted total of {total:F2}.");
 
             if (Debugger.IsAttached)
             {
