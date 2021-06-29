@@ -1,5 +1,4 @@
 ﻿using DiscountCalculator.Application.Model;
-using DiscountCalculator.Application.Persistence;
 using DiscountCalculator.Application.Promotion;
 using System.Diagnostics;
 
@@ -23,7 +22,7 @@ namespace DiscountCalculator.Console
     */
     internal class Program
     {
-        private static readonly ApplicationDatabase db = ApplicationDatabase.Instance();
+        private static readonly ProductRepository db = ProductRepository.Instance();
 
         private static void Main(string[] args)
         {

@@ -1,5 +1,4 @@
 using DiscountCalculator.Application.Model;
-using DiscountCalculator.Application.Persistence;
 using DiscountCalculator.Application.Promotion;
 using Xunit;
 
@@ -7,7 +6,7 @@ namespace DiscountCalculator.Test
 {
     public class ShoppingCartTests
     {
-        private readonly ApplicationDatabase db = ApplicationDatabase.Instance();
+        private readonly ProductRepository db = ProductRepository.Instance();
 
         [Fact]
         public void when_cart_has_no_products_should_return_0()

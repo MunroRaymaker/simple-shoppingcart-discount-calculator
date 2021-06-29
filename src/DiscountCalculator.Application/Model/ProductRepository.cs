@@ -1,20 +1,19 @@
-﻿using DiscountCalculator.Application.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace DiscountCalculator.Application.Persistence
+namespace DiscountCalculator.Application.Model
 {
-    public class ApplicationDatabase
+    public class ProductRepository
     {
-        private static readonly ApplicationDatabase instance = new ApplicationDatabase();
+        private static readonly ProductRepository instance = new ProductRepository();
 
-        private ApplicationDatabase()
+        private ProductRepository()
         {
             Seed();
         }
 
         public IDictionary<string, Product> Products { get; set; } = new Dictionary<string, Product>();
         
-        public static ApplicationDatabase Instance()
+        public static ProductRepository Instance()
         {
             return instance;
         }
