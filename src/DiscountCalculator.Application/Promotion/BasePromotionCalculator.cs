@@ -1,4 +1,5 @@
 using DiscountCalculator.Application.Model;
+using System.Collections.Generic;
 
 namespace DiscountCalculator.Application.Promotion
 {
@@ -10,6 +11,6 @@ namespace DiscountCalculator.Application.Promotion
 
         public int Quantity { get; set; }
 
-        public abstract decimal CalculatePromotion(ShoppingCart cart);
+        public abstract decimal CalculatePromotion(IReadOnlyList<Product> items);
     }
 }

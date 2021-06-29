@@ -23,10 +23,10 @@ namespace DiscountCalculator.Application.Promotion
             this.promotionCalculators = promotions;
         }
 
-        public decimal CalculateTotalPromotions(ShoppingCart cart)
+        public decimal CalculateTotalPromotions(IReadOnlyList<Product> items)
         {
             var totalPromotions = 0m;
-            foreach (var item in this.promotionCalculators) totalPromotions += item.CalculatePromotion(cart);
+            foreach (var item in this.promotionCalculators) totalPromotions += item.CalculatePromotion(items);
             return totalPromotions;
         }
     }

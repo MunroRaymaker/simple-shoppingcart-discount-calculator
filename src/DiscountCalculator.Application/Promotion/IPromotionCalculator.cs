@@ -1,9 +1,10 @@
 ﻿using DiscountCalculator.Application.Model;
+using System.Collections.Generic;
 
 namespace DiscountCalculator.Application.Promotion
 {
     public interface IPromotionCalculator
     {
-        decimal CalculateTotalPromotions(ShoppingCart cart);
+        decimal CalculateTotalPromotions(IReadOnlyList<Product> items);
     }
 }

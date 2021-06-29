@@ -42,7 +42,7 @@ namespace DiscountCalculator.Application.Model
 
         public decimal GetTotalPromotions()
         {
-            return promotionCalculator.CalculateTotalPromotions(this);
+            return promotionCalculator.CalculateTotalPromotions(this.items);
         }
 
         public decimal GetCartTotalWithPromotions()
